@@ -1,73 +1,108 @@
 import random
 
-# Avoir un bouton qui génère un seul item
-# Ce bouton est clickable uniquement 2 fois par jour 
-# avoir tout type d'item (tête, torse...)                                                                                    DONE
-# Stocker les items reçu dans une sorte d'inventaire 
-# Pouvoir vendre les items et récupérer des GOLDS à la place  
+class Armor:
+    def __init__(self, armor_type):
 
-# Agrandir le randint de item_quality pour que les légendaire soit beaucoup plus rare où regarder une autre solution         DONE
-# Essayer de mettre cette app sous forme graphique avec KIVY
+        self.armor_type = ["Tête", "Torse", "Ceinture", "Bague", "Amulette", "Gants", "Bottes"]
 
-# Quand l'item est de qualité supérieur (magique, rare, légendaire) il faut qu'il est des stats supplémentaire 
-# Stocker toutes les stats randomizer d'un un seul item 
 
-class Weapon():
-    # Génération d'un booléen aléatoire
-    # random_bit = random.getrandbits(1)
-    # item_magic_or_not = bool(random_bit)
 
-    weapon_type = ["Hache à une main", "Hache à deux mains", "Arc", "Arbalette", "Dague", "Masse", "Épée à une main", "Épée à deux mains"]
-    armor_type = ["Tête", "Torse", "Ceinture", "Bague", "Amulette", "Gants", "Bottes"]
+class Weapon:
+    def __init__(self, weapon_type):
 
-    unique_weapon = []
-    unique_armor = []
+        self.weapon_type = ["Hache à une main", "Hache à deux mains", "Arc", "Arbalette", "Dague", "Masse", "Épée à une main", "Épée à deux mains"]
+        
 
-    item_quality = random.randint(0, 200)
-    
-    damage = 0
-    cold_resistance = 0
-    fire_resistance = 0
-    light_resistance = 0
+class Item(Armor, Weapon):
+    def __init__(self, armor_type, weapon_type):
+        Armor.__init__(self, armor_type)
+        Weapon.__init__(self, weapon_type)
 
-def generate_weapon():
-    print(random.choice(Weapon.weapon_type + Weapon.armor_type))
-    
-    if Weapon.item_quality <= 100:
-        Weapon.damage = random.randint(1, 10)
-        Weapon.cold_resistance = random.randint(1, 5)
-        Weapon.fire_resistance = random.randint(1, 5)
-        Weapon.lightning_resistance = random.randint(1, 5)
-        print("Normal")
-    elif Weapon.item_quality > 100 and Weapon.item_quality <= 150:
-        Weapon.damage = random.randint(10, 20)
-        Weapon.cold_resistance = random.randint(5, 10)
-        Weapon.fire_resistance = random.randint(5, 10)
-        Weapon.lightning_resistance = random.randint(5, 10)
-        print("Magique")
-    elif Weapon.item_quality > 150 and Weapon.item_quality <= 199:
-        Weapon.damage = random.randint(20, 30)
-        Weapon.cold_resistance = random.randint(10, 20)
-        Weapon.fire_resistance = random.randint(10, 20)
-        Weapon.lightning_resistance = random.randint(10, 20)
-        print("Rare")
-    else:
-        Weapon.damage = random.randint(30, 40)
-        Weapon.cold_resistance = random.randint(20, 40)
-        Weapon.fire_resistance = random.randint(20, 40)
-        Weapon.lightning_resistance = random.randint(20, 40)
-        print("Légendaire")
+        self.generateQuality()
+        self.selectArmorOrWeapon()
 
-    print("Damage : " + str(Weapon.damage))
-    print("Cold Resistance : " + str(Weapon.cold_resistance))
-    print("Fire Resistance : " + str(Weapon.fire_resistance))
-    print("Lightning Resistance : " + str(Weapon.lightning_resistance))
-    
-    # if Weapon.item_magic_or_not:
-    #     print("Magic")
-    # else:
-    #     print("Normal")
+    def generateQuality(self):
 
-generate_weapon()
+        #self.quality = 500
+        self.quality = random.randint(0, 500)
+
+    def selectArmorOrWeapon(self):
+        self.type_item = random.choice(self.armor_type + self.weapon_type)
+
+    def checkType(self, type_item, armor_type):
+        for i in self.armor_type:
+            if i == self.type_item:
+                return ("armure")
+        return ("arme")
+
+    def generateStats(self):
+
+        if self.checkType(self.type_item, self.armor_type) == "armure" and self.quality <= 300:
+            print("ceci est une armure NORMAL")
+            armor = random.randint(1, 10)
+            cold_resistance = random.randint(1, 5)
+            fire_resistance = random.randint(1, 5)
+            lightning_resistance = random.randint(1, 5)
+            print("Armure : " + str(armor))
+            print("Résistance au froid : " + str(cold_resistance))
+            print("Résistance au feu : " + str(fire_resistance))
+            print("Résistance électrique : " + str(lightning_resistance))
+
+        elif self.checkType(self.type_item, self.armor_type) == "armure" and self.quality > 300 and self.quality <= 450:
+            print("ceci est une armure MAGIQUE")
+            armor = random.randint(10, 20)
+            cold_resistance = random.randint(5, 10)
+            fire_resistance = random.randint(5, 10)
+            lightning_resistance = random.randint(5, 10)
+            print("Armure : " + str(armor))
+            print("Résistance au froid : " + str(cold_resistance))
+            print("Résistance au feu : " + str(fire_resistance))
+            print("Résistance électrique : " + str(lightning_resistance))
+
+        elif self.checkType(self.type_item, self.armor_type) == "armure" and self.quality > 450 and self.quality <= 499:
+            print("ceci est une armure RARE")
+            armor = random.randint(20, 30)
+            cold_resistance = random.randint(10, 20)
+            fire_resistance = random.randint(10, 20)
+            lightning_resistance = random.randint(10, 20)
+            print("Armure : " + str(armor))
+            print("Résistance au froid : " + str(cold_resistance))
+            print("Résistance au feu : " + str(fire_resistance))
+            print("Résistance électrique : " + str(lightning_resistance))
+
+        elif self.checkType(self.type_item, self.armor_type) == "armure" and self.quality == 500:
+            print("ceci est une armure LÉGENDAIRE")
+            armor = random.randint(30, 40)
+            cold_resistance = random.randint(20, 40)
+            fire_resistance = random.randint(20, 40)
+            lightning_resistance = random.randint(20, 40)
+            print("Armure : " + str(armor))
+            print("Résistance au froid : " + str(cold_resistance))
+            print("Résistance au feu : " + str(fire_resistance))
+            print("Résistance électrique : " + str(lightning_resistance))
+
+        elif self.checkType(self.type_item, self.armor_type) != "armure" and self.quality <= 300:
+            print("ceci est une arme NORMAL")
+            damage = random.randint(1, 10)
+            print("Dégats : " + str(damage))
+
+        elif self.checkType(self.type_item, self.armor_type) != "armure" and self.quality > 300 and self.quality <= 450:
+            print("ceci est une arme MAGIQUE")
+            damage = random.randint(10, 20)
+            print("Dégats : " + str(damage))
+
+        elif self.checkType(self.type_item, self.armor_type) != "armure" and self.quality > 450 and self.quality <= 499:
+            print("ceci est une arme RARE")
+            damage = random.randint(20, 30)
+            print("Dégats : " + str(damage))
+            
+        else:
+            print("ceci est une arme LÉGENDAIRE")
+            damage = random.randint(30, 40)
+            print("Dégats : " + str(damage))
+        
+        
+item1 = Item("", "")
+item1.generateStats()
 
 

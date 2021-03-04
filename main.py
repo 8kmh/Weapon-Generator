@@ -39,7 +39,7 @@ class Item(Armor, Weapon):
 
         if self.checkType(self.type_item, self.armor_type) == "armure" and self.quality <= 300:
             print("ceci est une armure NORMAL")
-            armor = random.randint(1, 10)
+            armor = random.randint(1, 9)
             cold_resistance = random.randint(1, 5)
             fire_resistance = random.randint(1, 5)
             lightning_resistance = random.randint(1, 5)
@@ -50,10 +50,10 @@ class Item(Armor, Weapon):
 
         elif self.checkType(self.type_item, self.armor_type) == "armure" and self.quality > 300 and self.quality <= 450:
             print("ceci est une armure MAGIQUE")
-            armor = random.randint(10, 20)
-            cold_resistance = random.randint(5, 10)
-            fire_resistance = random.randint(5, 10)
-            lightning_resistance = random.randint(5, 10)
+            armor = random.randint(10, 19)
+            cold_resistance = random.randint(6, 10)
+            fire_resistance = random.randint(6, 10)
+            lightning_resistance = random.randint(6, 10)
             print("Armure : " + str(armor))
             print("Résistance au froid : " + str(cold_resistance))
             print("Résistance au feu : " + str(fire_resistance))
@@ -61,10 +61,10 @@ class Item(Armor, Weapon):
 
         elif self.checkType(self.type_item, self.armor_type) == "armure" and self.quality > 450 and self.quality <= 499:
             print("ceci est une armure RARE")
-            armor = random.randint(20, 30)
-            cold_resistance = random.randint(10, 20)
-            fire_resistance = random.randint(10, 20)
-            lightning_resistance = random.randint(10, 20)
+            armor = random.randint(20, 29)
+            cold_resistance = random.randint(11, 19)
+            fire_resistance = random.randint(11, 19)
+            lightning_resistance = random.randint(11, 19)
             print("Armure : " + str(armor))
             print("Résistance au froid : " + str(cold_resistance))
             print("Résistance au feu : " + str(fire_resistance))
@@ -83,17 +83,17 @@ class Item(Armor, Weapon):
 
         elif self.checkType(self.type_item, self.armor_type) != "armure" and self.quality <= 300:
             print("ceci est une arme NORMAL")
-            damage = random.randint(1, 10)
+            damage = random.randint(1, 9)
             print("Dégats : " + str(damage))
 
         elif self.checkType(self.type_item, self.armor_type) != "armure" and self.quality > 300 and self.quality <= 450:
             print("ceci est une arme MAGIQUE")
-            damage = random.randint(10, 20)
+            damage = random.randint(10, 19)
             print("Dégats : " + str(damage))
 
         elif self.checkType(self.type_item, self.armor_type) != "armure" and self.quality > 450 and self.quality <= 499:
             print("ceci est une arme RARE")
-            damage = random.randint(20, 30)
+            damage = random.randint(20, 29)
             print("Dégats : " + str(damage))
             
         else:

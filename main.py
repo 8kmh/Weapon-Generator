@@ -1,8 +1,10 @@
 import random
 
 class Armor:
-    def __init__(self, armor_type):
-
+    # armor_type = ["Tête", "Torse", "Ceinture", "Bague", "Amulette", "Gants", "Bottes"]
+    # armor_attribute = ["Intelligence", "Maximum Life", "Cold Resistance", "Fire Resistance", "Lightning resistance"]
+    def __init__(self):
+        pass
         self.armor_type = ["Tête", "Torse", "Ceinture", "Bague", "Amulette", "Gants", "Bottes"]
         self.armor_attribute = ["Intelligence", "Maximum Life", "Cold Resistance", "Fire Resistance", "Lightning resistance"]
 
@@ -13,10 +15,10 @@ class Armor:
 
 
 class Weapon:
-    def __init__(self, weapon_type):
+    def __init__(self):
 
         self.weapon_type = ["Hache à une main", "Hache à deux mains", "Arc", "Arbalette", "Dague", "Masse", "Épée à une main", "Épée à deux mains"]
-        self.weapon_attribute = ["Dégats de feu", "Dégats de foudre", "Dégats de froid"]
+        self.weapon_attribute = ["Dégats de feu", "Dégats de foudre", "Dégats de froid", "Chance de coup critique"]
 
     # Stats qui apparait toujours dans une arme
     def getDamage(self, min, max):
@@ -26,15 +28,15 @@ class Weapon:
         
 
 class Item(Armor, Weapon):
-    def __init__(self, armor_type, weapon_type):
+    def __init__(self):
 
-        Armor.__init__(self, armor_type)
-        Weapon.__init__(self, weapon_type)
+        Armor.__init__(self)
+        Weapon.__init__(self)
 
     
     # Choix d'un nombre aléatoire entre 0 et 500 pour définir la qualité de l'item
     def generateQuality(self):
-
+        
         #self.quality = 500
         self.quality = random.randint(0, 500)
 
@@ -66,10 +68,9 @@ class Item(Armor, Weapon):
     # Si CheckType return ("arme") attribute_choose = 1 à 4 stats aléatoire choisis dans weapon_attribute
     def getRandomAttribute(self):
         if self.checkType(self.type_item, self.armor_type) == ("armure") and self.quality <= 300:
-            self.attribute_choose = random.sample(self.armor_attribute, random.randint(0, 1))
+            self.attribute_choose = random.sample(self.armor_attribute, random.randint(0, 0))
             self.getArmor(1, 5)
             
-
         elif self.checkType(self.type_item, self.armor_type) == "armure" and self.quality > 300 and self.quality <= 450:
             self.attribute_choose = random.sample(self.armor_attribute, random.randint(1, 2))
             self.getArmor(6, 10)
@@ -83,7 +84,7 @@ class Item(Armor, Weapon):
             self.getArmor(16, 20)
 
         elif self.checkType(self.type_item, self.armor_type) != "armure" and self.quality <= 300:
-            self.attribute_choose = random.sample(self.weapon_attribute, random.randint(0, 1))
+            self.attribute_choose = random.sample(self.weapon_attribute, random.randint(0, 0))
             self.getDamage(1, 10)
         
         elif self.checkType(self.type_item, self.armor_type) != "armure" and self.quality > 300 and self.quality <= 450:
@@ -119,7 +120,7 @@ class Item(Armor, Weapon):
         self.getRandomAttributeStats()
 
     
-item1 = Item("", "")
+item1 = Item()
 item1.execute()
 
 

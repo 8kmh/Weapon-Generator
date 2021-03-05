@@ -16,12 +16,13 @@ class Weapon:
     def __init__(self, weapon_type):
 
         self.weapon_type = ["Hache à une main", "Hache à deux mains", "Arc", "Arbalette", "Dague", "Masse", "Épée à une main", "Épée à deux mains"]
-        self.weapon_attribute = ["Dégats Physique", "Dégats de feu", "Dégats de foudre", "Dégats de froid"]
+        self.weapon_attribute = ["Dégats de feu", "Dégats de foudre", "Dégats de froid"]
 
     # Stats qui apparait toujours dans une arme
     def getDamage(self, min, max):
         self.damage = random.randint(min, max)
         print("Dégats : " + str(self.damage))
+
         
 
 class Item(Armor, Weapon):
@@ -104,7 +105,7 @@ class Item(Armor, Weapon):
                 print(i + " " + str(random.randint(1, 5)))
             elif self.quality > 300 and self.quality <= 450:
                 print(i + " " + str(random.randint(6, 10)))
-            elif self.quality > 300 and self.quality <= 450:
+            elif self.quality > 450 and self.quality <= 499:
                 print(i + " " + str(random.randint(11, 19)))
             else:
                 print(i + " " + str(random.randint(20, 40)))

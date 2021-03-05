@@ -4,6 +4,7 @@ class Armor:
     def __init__(self, armor_type):
 
         self.armor_type = ["Tête", "Torse", "Ceinture", "Bague", "Amulette", "Gants", "Bottes"]
+        self.armor_attribute = ["Intelligence", "Maximum Life", "Armor", "Cold Resistance", "Fire Resistance", "Lightning resistance"]
 
     def getArmor(self, min, max):
         self.armor = random.randint(min, max)
@@ -27,6 +28,7 @@ class Weapon:
     def __init__(self, weapon_type):
 
         self.weapon_type = ["Hache à une main", "Hache à deux mains", "Arc", "Arbalette", "Dague", "Masse", "Épée à une main", "Épée à deux mains"]
+        self.weapon_attribute = ["Dégats Physique", "Dégats de feu", "Dégats de foudre", "Dégats de froid"]
 
     def getAttackSpeed(self, min, max):
         self.attack_speed = random.randint(min, max)
@@ -42,77 +44,96 @@ class Item(Armor, Weapon):
         Armor.__init__(self, armor_type)
         Weapon.__init__(self, weapon_type)
 
-        self.generateQuality()
-        self.selectArmorOrWeapon()
+        # self.generateQuality()
+        # self.selectArmorOrWeapon()
+        # self.checkType(self.type_item, self.armor_type)
+        # self.getRandomAttribute()
+        # self.getRandomAttributeStats()
     
-
+    # Choix d'un nombre aléatoire entre 0 et 500 pour définir la qualité de l'item
     def generateQuality(self):
 
         #self.quality = 500
         self.quality = random.randint(0, 500)
 
+        if self.quality <= 300:
+            print("NORMAL")
+
+        elif self.quality > 300 and self.quality <= 450:
+            print("MAGIQUE")
+
+        elif self.quality > 450 and self.quality <= 499:
+            print("RARE")
+
+        else:
+            print("Légendaire")
+
+    # Stockage dans la variable type_item d'un choix aléatoire entre les deux tableau : armor_type, weapon_type
     def selectArmorOrWeapon(self):
         self.type_item = random.choice(self.armor_type + self.weapon_type)
+        print(self.type_item)
 
+    # Si l'élément choisi dans type_item se retrouve dans le tableau armor_type : return ("armure") sinon return ("arme")
     def checkType(self, type_item, armor_type):
         for i in self.armor_type:
             if i == self.type_item:
                 return ("armure")
         return ("arme")
 
-    def generateStats(self):
-
-        if self.checkType(self.type_item, self.armor_type) == "armure" and self.quality <= 300:
-            print("ceci est une armure NORMAL")
-            self.getArmor(1, 9)
-            self.getColdResistance(1, 5)
-            self.getFireResistance(1, 5)
-            self.getLightningResistance(1, 5)
+    # Si CheckType return ("armure") attribute_choose = 1 à 3 stats aléatoire choisis dans armor_attribute
+    def getRandomAttribute(self):
+        if self.checkType(self.type_item, self.armor_type) == ("armure") and self.quality <= 300:
+            self.attribute_choose = random.sample(self.armor_attribute, random.randint(0, 1))
             
 
         elif self.checkType(self.type_item, self.armor_type) == "armure" and self.quality > 300 and self.quality <= 450:
-            print("ceci est une armure MAGIQUE")
-            self.getArmor(10, 19)
-            self.getColdResistance(6, 10)
-            self.getFireResistance(6, 10)
-            self.getLightningResistance(6, 10)
+            self.attribute_choose = random.sample(self.armor_attribute, random.randint(1, 2))
+            
 
         elif self.checkType(self.type_item, self.armor_type) == "armure" and self.quality > 450 and self.quality <= 499:
-            print("ceci est une armure RARE")
-            self.getArmor(20, 29)
-            self.getColdResistance(11, 19)
-            self.getFireResistance(11, 19)
-            self.getLightningResistance(11, 19)
+            self.attribute_choose = random.sample(self.armor_attribute, random.randint(2, 3))
+            
 
         elif self.checkType(self.type_item, self.armor_type) == "armure" and self.quality == 500:
-            print("ceci est une armure LÉGENDAIRE")
-            self.getArmor(30, 40)
-            self.getColdResistance(20, 40)
-            self.getFireResistance(20, 40)
-            self.getLightningResistance(20, 40)
+            self.attribute_choose = random.sample(self.armor_attribute, random.randint(3, 4))
+            
 
         elif self.checkType(self.type_item, self.armor_type) != "armure" and self.quality <= 300:
-            print("ceci est une arme NORMAL")
-            self.getDamage(1, 9)
-            self.getAttackSpeed(1, 5)
-
+            self.attribute_choose = random.sample(self.weapon_attribute, random.randint(0, 1))
+            
+        
         elif self.checkType(self.type_item, self.armor_type) != "armure" and self.quality > 300 and self.quality <= 450:
-            print("ceci est une arme MAGIQUE")
-            self.getDamage(10, 19)
-            self.getAttackSpeed(6, 10)
+            self.attribute_choose = random.sample(self.weapon_attribute, random.randint(1, 2))
+            
 
         elif self.checkType(self.type_item, self.armor_type) != "armure" and self.quality > 450 and self.quality <= 499:
-            print("ceci est une arme RARE")
-            self.getDamage(20, 29)
-            self.getAttackSpeed(11, 19)
+            self.attribute_choose = random.sample(self.weapon_attribute, random.randint(2, 3))
             
+
         else:
-            print("ceci est une arme LÉGENDAIRE")
-            self.getDamage(20, 40)
-            self.getAttackSpeed(20, 30)
+            self.attribute_choose = random.sample(self.weapon_attribute, random.randint(3, 4))
+            
+
+    def getRandomAttributeStats(self):
+        for i in self.attribute_choose:
+            if self.quality <= 300:
+                print(i + " " + str(random.randint(1, 5)))
+            elif self.quality > 300 and self.quality <= 450:
+                print(i + " " + str(random.randint(6, 10)))
+            elif self.quality > 300 and self.quality <= 450:
+                print(i + " " + str(random.randint(11, 19)))
+            else:
+                print(i + " " + str(random.randint(20, 40)))
+
+    def execute(self):
         
-        
+        self.generateQuality()
+        self.selectArmorOrWeapon()
+        self.getRandomAttribute()
+        self.getRandomAttributeStats()
+
+    
 item1 = Item("", "")
-item1.generateStats()
+item1.execute()
 
 

@@ -4,7 +4,7 @@ class Armor:
     # armor_type = ["Tête", "Torse", "Ceinture", "Bague", "Amulette", "Gants", "Bottes"]
     # armor_attribute = ["Intelligence", "Maximum Life", "Cold Resistance", "Fire Resistance", "Lightning resistance"]
     def __init__(self):
-        pass
+        
         self.armor_type = ["Tête", "Torse", "Ceinture", "Bague", "Amulette", "Gants", "Bottes"]
         self.armor_attribute = ["Intelligence", "Maximum Life", "Cold Resistance", "Fire Resistance", "Lightning resistance"]
 
